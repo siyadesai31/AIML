@@ -67,3 +67,89 @@ while queue.empty()== False :
 
 if ct!=1:
     print("Solution Not Found")
+
+
+#missionaries and cannibals using dfs
+visited=set()
+printlist=[]
+
+parent={}
+queue=[]
+queue.append(((3,3),'L'));
+def legal(a):
+    m=a[0][0]
+    c=a[0][1]
+    if(m<0 or c<0 or m>3 or c>3):
+        return 0;
+    #checking if cannibals are more than missionaries 
+    if( (m<c and m>0 and c>0 ) or ((3-m)<(3-c) and (3-c)>0 and (3-m)>0)):
+        return 0;
+    return 1;
+    
+def mnc():
+    while(queue):
+        a=queue.pop(0);
+        m1=a[0][0]
+        c1=a[0][1]
+        b1=a[1][0]
+        if(a in visited):
+            continue;
+        if( not (m1==0 and c1==0 and b1=='R')):
+            visited.add(((m1,c1),b1));
+        if(m1==0 and c1==0 and b1=='R'):
+            temp=[]
+            t=a;
+            temp.append(t);
+            while(t in parent ) :
+                t=parent[t]
+                temp.append(t)
+            temp.reverse()
+            print(temp)
+            continue
+        if(b1=='L'):
+            newel=(((m1-1,c1),'R'))
+            if newel not in visited and legal(newel):
+                 queue.append(newel)
+                 parent[newel]=a
+            newel=(((m1,c1-1),'R'))
+            if newel not in visited and legal(newel):
+                 queue.append(newel)
+                 parent[newel]=a
+            newel=(((m1-2,c1),'R'))
+            if newel not in visited and legal(newel):
+                 queue.append(newel)
+                 parent[newel]=a
+            newel=(((m1,c1-2),'R'))
+            if newel not in visited and legal(newel):
+                 queue.append(newel)
+                 parent[newel]=a
+            newel=(((m1-1,c1-1),'R'))
+            if newel not in visited and legal(newel):
+                 queue.append(newel)
+                 parent[newel]=a
+        if(b1=='R'):
+            newel=(((m1+1,c1),'L'))
+            if newel not in visited and legal(newel):
+                 queue.append(newel)
+                 parent[newel]=a
+            newel=(((m1,c1+1),'L'))
+            if newel not in visited and legal(newel):
+                 queue.append(newel)
+                 parent[newel]=a
+            newel=(((m1+2,c1),'L'))
+            if newel not in visited and legal(newel):
+                 queue.append(newel)
+                 parent[newel]=a
+            newel=(((m1,c1+2),'L'))
+            if newel not in visited and legal(newel):
+                 queue.append(newel)
+                 parent[newel]=a
+            newel=(((m1+1,c1+1),'L'))
+            if newel not in visited and legal(newel):
+                 queue.append(newel)
+                 parent[newel]=a
+
+
+
+mnc();
+    

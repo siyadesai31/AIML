@@ -67,3 +67,50 @@ while len(stack)!=0 :
 
 if ct!=1:
     print("Solution Not Found")
+
+
+#missionaries and cannibals using dfs
+
+visited=set()
+printlist=[]
+n=2
+def mnc(m,c,boat):
+    
+    #if illegal node
+    if(m<0 or c<0 or m>n or c>n):
+        return;
+    #checking if cannibals are more than missionaries 
+    if( (m<c and m>0 and c>0 ) or ((n-m)<(n-c) and (n-c)>0 and (n-m)>0)):
+     return;
+    if( ( (m,c),boat)  in visited ):
+       return;
+    if( not (m==0 and c==0 and boat=='R')):
+        visited.add(((m,c),boat));
+    #print(visited)
+    printlist.append(((m,c),boat));
+    if(m==0 and c==0 and boat== 'R'):
+        print(printlist) 
+        print("\n")
+        #visited.pop();
+        printlist.pop();
+        return;  
+    if(boat=='L'):
+        mnc(m-1,c-1,'R')
+        mnc(m,c-1,'R')
+        mnc(m-1,c,'R')
+        mnc(m-2,c,'R')
+        mnc(m,c-2,'R')
+        
+    if(boat=='R'):
+        mnc(m+1,c+1,'L')
+        mnc(m,c+1,'L')
+        mnc(m+1,c,'L')
+        mnc(m+2,c,'L')
+        mnc(m,c+2,'L')
+    printlist.pop();
+    
+
+        
+        
+        
+mnc(n,n,'L');

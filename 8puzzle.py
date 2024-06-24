@@ -149,3 +149,67 @@ def main():
 main()
 
 
+# # hill climbing
+# goal = [
+#     [1, 2, 3],
+#     [4, 5, 6],
+#     [7, 8, 0]
+# ]
+
+# def misplaced_tiles(initial):
+#     count = 0
+#     for i in range(3):
+#         for j in range(3):
+#             if initial[i][j] != goal[i][j]:
+#                 count += 1
+#     return count
+
+# def find_blank_tile(state):
+#     for i in range(3):
+#         for j in range(3):
+#             if state[i][j] == 0:
+#                 return i, j
+
+# def generate_neighbour(state):
+#     neighbour = []
+#     blank_row, blank_col = find_blank_tile(state)
+#     directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+#     for d in directions:
+#         new_row, new_col = blank_row + d[0], blank_col + d[1]
+#         if 0 <= new_row < 3 and 0 <= new_col < 3:
+#             new_state = [row[:] for row in state]
+#             new_state[blank_row][blank_col], new_state[new_row][new_col] = new_state[new_row][new_col], new_state[blank_row][blank_col]
+#             neighbour.append(new_state)
+#     return neighbour
+
+# def hill_climbing(initial):
+#     current_state = initial
+#     while True:
+#         current_cost = misplaced_tiles(current_state)
+#         if current_cost == 0:
+#             return current_state
+#         neighbour = generate_neighbour(current_state)
+#         best_neighbour = min(neighbour, key=misplaced_tiles)
+#         current_state = best_neighbour
+#         print("\nCurrent State:")
+#         for row in current_state:
+#             print(row)
+#         h = misplaced_tiles(current_state)
+#         print("\nHeuristic Value:", h)
+#         print("\n")
+#         if misplaced_tiles(best_neighbour) >= current_cost:
+#             print("Local minima problem ")
+
+# def main():
+#     initial_state = []
+#     print("Enter the initial state (use 0 to represent the blank tile):\n")
+#     for _ in range(3):
+#         row = list(map(int, input().split()))
+#         initial_state.append(row)
+
+#     solution = hill_climbing(initial_state)
+#     print("\nFinal Solution:")
+#     for row in solution:
+#         print(row)
+
+# main()
